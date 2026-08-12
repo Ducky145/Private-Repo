@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Block City</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            background: #1a1a1a;
+        }
+        
+        #renderCanvas {
+            width: 100%;
+            height: 100vh;
+            display: block;
+        }
+        
+        #ui {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-size: 14px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 300px;
+        }
+        
+        #ui h1 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #4CAF50;
+        }
+        
+        #controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px 40px;
+            border-radius: 8px;
+            color: white;
+            text-align: center;
+            min-width: 400px;
+        }
+        
+        #controls h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #4CAF50;
+        }
+        
+        .control-row {
+            margin: 8px 0;
+            font-size: 13px;
+        }
+        
+        .key {
+            background: #333;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin: 0 4px;
+            min-width: 30px;
+            text-align: center;
+        }
+        
+        #stats {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 14px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        #stats div {
+            margin: 5px 0;
+        }
+        
+        #colorPicker {
+            position: absolute;
+            top: 20px;
+            left: 350px;
+            display: flex;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .colorOption {
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .colorOption:hover {
+            transform: scale(1.1);
+        }
+        
+        .colorOption.active {
+            border-color: white;
+            transform: scale(1.15);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="renderCanvas"></canvas>
+    
+    <div id="ui">
+        <h1>🏗️ Mini Block City</h1>
+        <div>
+            <strong>Status:</strong> Ready to Build!
+        </div>
+        <div style="margin-top: 10px; font-size: 12px; color: #aaa;">
+            Click to place blocks, right-click to remove
+        </div>
+    </div>
+    
+    <div id="colorPicker">
+        <div class="colorOption active" data-color="#FF6B6B" style="background: #FF6B6B;"></div>
+        <div class="colorOption" data-color="#4ECDC4" style="background: #4ECDC4;"></div>
+        <div class="colorOption" data-color="#FFE66D" style="background: #FFE66D;"></div>
+        <div class="colorOption" data-color="#95E1D3" style="background: #95E1D3;"></div>
+        <div class="colorOption" data-color="#A8D8EA" style="background: #A8D8EA;"></div>
+        <div class="colorOption" data-color="#AA96DA" style="background: #AA96DA;"></div>
+    </div>
+    
+    <div id="stats">
+        <div><strong>Blocks:</strong> <span id="blockCount">0</span></div>
+        <div><strong>FPS:</strong> <span id="fps">60</span></div>
+        <div style="margin-top: 10px; border-top: 1px solid #555; padding-top: 10px;">
+            <div><strong>Current Color:</strong></div>
+            <div id="currentColor" style="width: 30px; height: 30px; margin-top: 5px; border-radius: 4px; background: #FF6B6B;"></div>
+        </div>
+    </div>
+    
+    <div id="controls">
+        <h2>Controls</h2>
+        <div class="control-row"><span class="key">LMB</span> Place Block</div>
+        <div class="control-row"><span class="key">RMB</span> Remove Block</div>
+        <div class="control-row"><span class="key">W/A/S/D</span> Move Camera</div>
+        <div class="control-row"><span class="key">SPACE</span> Up | <span class="key">CTRL</span> Down</div>
+        <div class="control-row"><span class="key">R</span> Clear All | <span class="key">P</span> Toggle Preview</div>
+    </div>
+    
+    <script type="module" src="src/main.js"></script>
+</body>
+</html>
